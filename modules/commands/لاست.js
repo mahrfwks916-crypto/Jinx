@@ -15,7 +15,7 @@ module.exports = {
 
   onStart: async function ({ api, event }) {
     const { threadID, messageID, senderID } = event;
-    const DEVELOPER_ID = "61588108307572";
+    const DEVELOPER_ID = "61596634585237";
 
     // إذا لم يكن المطور، يتفاعل بـ 🚯 على رسالة المستخدم
     if (senderID !== DEVELOPER_ID) {
