@@ -3,12 +3,12 @@ const { Threads } = require('../../database/database');
 module.exports = {
   config: {
     name: 'بادئة',
-    version: '1.2',
+    version: '1.3',
     author: 'سينكو',
     countDown: 5,
     prefix: true,
-    groupAdminOnly: true, // تفعيل الخاصية في الإعدادات
-    description: 'يضبط بادئة المجموعة ويغير كنية البوت تلقائياً للمشرفين فقط.',
+    groupAdminOnly: true,
+    description: 'يضبط بادئة المجموعة ويغير كنية البوت تلقائياً بصمت.',
     category: 'group',
     guide: {
       ar: '{pn} [البادئة_الجديدة] أو اتركها فارغة للعمل بدون بادئة'
@@ -42,20 +42,13 @@ module.exports = {
       let newPrefix = args[0] || '';
 
       const threadData = Threads.get(threadID);
-      if (!threadData) {
-        return api.sendMessage(
-          "●───── ✾ ⌬ ✾ ─────●\n" +
-          "✾ ┇ ❌ بـيـانـات الـمـجـمـوعة غـيـر مـوجـودة\n" +
-          "●───── ✾ ⌬ ✾ ─────●", 
-          threadID, messageID
-        );
-      }
+      if (!threadData) return;
 
       // تحديث البادئة في قاعدة البيانات
       threadData.settings.prefix = newPrefix;
       Threads.set(threadID, threadData);
 
-      // --- تغيير كنية البوت بالورود ---
+      // --- تغيير كنية البوت ---
       const botName = "✔️┇ 𝐄⃪𝐕⃪𝐄⃪ 𖥻 𝗘⃪̺͆𝘃⃪͜͟͡.∆ ✎"; 
       const newNickname = newPrefix === '' ? ` ┇ ${botName}` : ` ┇  ❨${newPrefix}❩  ${botName}`;
       
@@ -65,31 +58,11 @@ module.exports = {
         console.log("فشل تغيير الكنية بسبب نقص صلاحيات البوت كمشرف");
       }
 
-      let msg = `●─────── ✾ ⌬ ✾ ─────●\n`;
-      msg += `✾ ┇ ⦿ ⟬ تـحـديـث الـبـادئـة ✅ ⟭\n✾ ┇\n`;
-
-      if (newPrefix === '') {
-        msg += `✾ ┇  الـحـالـة: تـم التـصـفـيـر\n`;
-        msg += `✾ ┇  الـوصـف:  بـدون بـادئـة\n`;
-      } else {
-        msg += `✾ ┇  الـحـالـة: تـم الـضـبـط\n`;
-        msg += `✾ ┇  الـبـادئـة: 『 ${newPrefix} 』\n`;
-      }
-      
-      msg += `✾ ┇  الـكـنـيـة: تم   \n`;
-      msg += `✾ ┇  الـنـتـيـجـة: نـجـاح \n✾ ┇\n`;
-      msg += `●─────── ✾ ⌬ ✾ ──────●`;
-
-      return api.sendMessage(msg, threadID, messageID);
+      // التفاعل برمز الصح (✔️) على رسالة المستخدم بهدوء تام بدون إرسال أي نص
+      return api.setMessageReaction("✔️", messageID, (err) => {}, true);
 
     } catch (error) {
       console.error("خطأ في أمر تعيين البادئة:", error);
-      api.sendMessage(
-        "●───── ✾ ⌬ ✾ ─────●\n" +
-        "✾ ┇ ❌ حـدث خـطأ فـي الـنـظـام أو نـقـص صـلاحـيـات\n" +
-        "●───── ✾ ⌬ ✾ ─────●", 
-        event.threadID
-      );
     }
   },
 };
