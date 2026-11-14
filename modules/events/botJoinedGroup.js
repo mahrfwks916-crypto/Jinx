@@ -4,8 +4,8 @@ const fs = require('fs-extra');
 module.exports = {
   config: {
     name: 'botJoinedGroup',
-    version: '2.6',
-    author: 'Hridoy / Minimal Style',
+    version: '2.8',
+    author: 'ماهر',
     description: 'ترحيب انضمام البوت مع صورة وكنية احترافية.',
     eventType: ['log:subscribe'],
   },
@@ -18,27 +18,33 @@ module.exports = {
       // التأكد أن البوت هو العضو الجديد
       if (!addedParticipants.some(user => user.userFbId === botID)) return;
 
-      const botName = global.client.config.botName || ' 𝕒𝕡𝕝𝕚𝕟';
       const prefix = global.client.config.prefix || '';
 
-      // تغيير الكنية (تعديل الزخرفة فقط للأقواس المجهرية والعمود المقطع والوردة خارجاً)
-      const shortNickname = `✔️┇  ${prefix} 𝐀⃪𝐁⃪𝐈⃪𝐋⃪𝐄⃪𝐍⃪ 𖥻 𝗔⃪̺͆𝗶⃪͜͟͡.∆  ✎  `;
+      // تغيير الكنية بالاسم والزخرفة المطلوبة
+      const shortNickname = `✔️┇ 𝐄⃪𝐕⃪𝐄⃪ 𖥻 𝗘⃪̺͆𝘃⃪͜͟͡.∆ ✎`;
       api.changeNickname(shortNickname, event.threadID, botID);
 
-      // زخرفة الترحيب (تطبيق النمط الملكي الجديد: الزهور خارج الأعمدة)
-      const welcomeMsg = `✾ ┇ ⸻⸻⸻⸻⸻
-✾ ┇    ✧ إبـلـيـن  ✧
-✾ ┇ ⸻⸻⸻⸻⸻
-✾ ┇  ⊹ الـرّمـز : [ ${prefix} ]
-✾ ┇  ⊹ الـدّليل : [ ${prefix}help ]
-✾ ┇  ⊹ الـمـطـور : سـيـنـكـو 17Y
-✾ ┇ ⸻⸻⸻⸻⸻
-✾ ┇      ˗ˏˋ S I N K O   ´ˎ˗`;
+      // رسالة الترحيب بنفس إطار وزخرفة الأوامر
+      let welcomeMsg = ``;
+      welcomeMsg += `╮───────∙⋆⋅ ※ ⋅⋆∙───────╭\n`; 
+      welcomeMsg += `    مـرحـباً بـكـم فـي الـمـجـمـوعة\n`; 
+      welcomeMsg += `╯───────∙⋆⋅ ※ ⋅⋆∙───────╰\n\n`; 
+
+      welcomeMsg += `╮────∙⋆⋅「 معلومات البوت 」\n`;
+      welcomeMsg += `│ › الـبـوت : ✔️┇ 𝐄⃪𝐕⃪𝐄⃪ 𖥻 𝗘⃪̺͆𝘃⃪͜͟͡.∆ ✎\n`;
+      welcomeMsg += `│ › الـرّمـز : [ ${prefix} ]\n`;
+      welcomeMsg += `│ › الـدّليل : [ ${prefix}اوامر ]\n`;
+      welcomeMsg += `│ › الـمـطـور : مـاهـر\n`;
+      welcomeMsg += `╯───────∙⋆⋅ ※ ⋅⋆∙───────◈\n\n`;
+
+      welcomeMsg += `╮───────∙⋆⋅ ※ ⋅⋆∙───────◈\n`;
+      welcomeMsg += `│ 💡 اسـتـخـدم (${prefix}اوامر) لعرض الأوامر\n`;
+      welcomeMsg += `╯───────∙⋆⋅ ※ ⋅⋆∙───────◈`;
 
       const imgPath = __dirname + "/cache/bot_join.jpg";
       const imgUrl = "https://i.ibb.co/Gf0jJr6F/1777544849126.png";
 
-      // تحميل الصورة وإرسالها (نفس الدالة الأصلية بدون تغيير)
+      // تحميل الصورة وإرسالها
       const response = await axios.get(imgUrl, { responseType: "arraybuffer" });
       await fs.outputFile(imgPath, Buffer.from(response.data, "utf-8"));
 
