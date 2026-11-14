@@ -56,8 +56,8 @@ module.exports = {
       Threads.set(threadID, threadData);
 
       // --- تغيير كنية البوت بالورود ---
-      const botName = "✔️ ┇ 𝐌⃪𝐈⃪𝐊⃪𝐎⃪ 𖥻 𝗠⃪̺͆𝗶⃪͜͟͡.∆ ✎"; 
-      const newNickname = newPrefix === '' ? `✔️ ┇ ${botName}` : `✔️ ┇  ❨${newPrefix}❩  ${botName}`;
+      const botName = "✔️┇ 𝐄⃪𝐕⃪𝐄⃪ 𖥻 𝗘⃪̺͆𝘃⃪͜͟͡.∆ ✎"; 
+      const newNickname = newPrefix === '' ? ` ┇ ${botName}` : ` ┇  ❨${newPrefix}❩  ${botName}`;
       
       try {
         await api.changeNickname(newNickname, threadID, botID);
