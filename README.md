@@ -4,7 +4,7 @@
 
 <br>
 
-<img src="ضع_رابط_صورة_البانر_هنا" alt="Bot Picture" width="180" style="border-radius:50%">
+<img src="https://i.imgur.com/K9zeRpi.jpeg" alt="Bot Picture" width="180" style="border-radius:50%">
 
 <br><br>
 
@@ -121,7 +121,7 @@ npm install
 {
   "botName": "ايف",
   "prefix": "!",
-  "botpicture": "ضع_رابط_صورة_البوت_هنا",
+  "botpicture": "https://i.imgur.com/hGtGUdK.jpeg",
   "ownerName": "ماهر البوت ايف (Eva)",
   "ownerUID": "61596634585237",
   "adminUIDs": [
@@ -268,7 +268,7 @@ module.exports.run = async ({ api, event }) => {
 
 <div align="center">
 
-<img src="ضع_رابط_صورة_المطور_هنا" alt="Developer" width="150" style="border-radius:50%">
+<img src="https://i.imgur.com/K9zeRpi.jpeg" alt="Developer" width="150" style="border-radius:50%">
 
 ### 👑 ماهر البوت ايف | Eva 👑
 
